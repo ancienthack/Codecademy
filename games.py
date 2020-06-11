@@ -1,6 +1,6 @@
 import random
 
-money = 100
+money = 50
 
 #Write your game of chance functions here
 
