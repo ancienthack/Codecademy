@@ -27,11 +27,11 @@ def censor_list(email, proprietary_terms):
         email = email.replace(term, '*' * len(term))
         email = email.replace(term.title(), '*' * len(term))
     return email
-print()
-print()
-print(censor_list(email_two, proprietary_terms))
-print()
-print()
+# print()
+# print()
+# print(censor_list(email_two, proprietary_terms))
+# print()
+# print()
 
 def censor_negative(email, proprietary_terms, negative_words):
     proprietary_terms.sort(key=len, reverse=True)
