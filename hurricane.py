@@ -20,7 +20,7 @@ damages = ['Damages not recorded', '100M', 'Damages not recorded', '40M', '27.9M
 deaths = [90,4000,16,3103,179,184,408,682,5,1023,43,319,688,259,37,11,2068,269,318,107,65,19325,51,124,17,1836,125,87,45,133,603,138,3057,74]
 
 # write your update damages function here:
-def update_damages():
+def update_damages(damages):
     damages_dict = {'B':1000000000, 'M':1000000}
     for i in range(len(damages)):
         if 'B' in damages[i]:
@@ -31,48 +31,72 @@ def update_damages():
             damages[i] = float(damages[i]) * damages_dict['M']
     return damages
 
-updated_damages = update_damages()
+updated_damages = update_damages(damages)
 # print(updated_damages)
 
 # write your construct hurricane dictionary function here:
-def const_hurricane_dict():
+def hurricane_dict():
     hurricanes = {}
     for i in range(len(names)):
         hurricanes[names[i]] = {"Name": names[i], "Month": months[i], "Year": years[i], "Max Sustained Wind": max_sustained_winds[i], "Areas Affected": areas_affected[i], "Damage": updated_damages[i], "Deaths": deaths[i]}
     return hurricanes
 
-hurricanes = const_hurricane_dict()
+hurricanes = hurricane_dict()
 # print(hurricanes)
 # print(hurricanes['Cuba I'])
 
 # write your construct hurricane by year dictionary function here:
-def hurricane_by_year():
-    hurricanes_by_year = {}
-    for i in range(len(years)):
-        years[i] = []
-        if years[i] in hurricanes[names[i]].values():
-            hurricanes_by_year[years[i]] = years[i].append(hurricanes[names[i]])
-    return hurricanes_by_year
+def hurricane_by_year(hurricanes):
+    hurricane_years = {}
+    for hurricane in hurricanes:
+        current_year = hurricanes[hurricane]['Year']
+        current_hurricane = hurricanes[hurricane]
+        if current_year not in hurricane_years.keys():
+            hurricane_years[current_year] = [hurricanes[hurricane]]
+        else:
+            hurricane_years[current_year].append(hurricanes[hurricane])
+    return hurricane_years
 
-hurricanes_by_year = hurricane_by_year()
+hurricanes_by_year = hurricane_by_year(hurricanes)
 # print(hurricanes_by_year)
-print(hurricanes_by_year[1932])
+# print(hurricanes_by_year[1932])
 
 # write your count affected areas function here:
+def count_affected_areas(hurricanes):
+    counted_areas = {}
+    for hurricane in hurricanes:
+        current_list = hurricanes[hurricane]['Areas Affected']
+        for area in current_list:
+            if area not in counted_areas:
+                counted_areas[area] = 1
+            else:
+                counted_areas[area] += 1
+    return counted_areas
 
-
-
-
-
-
+counted_areas = count_affected_areas(hurricanes)
+# print(counted_areas)
+# print(counted_areas['Mexico'])
 
 # write your find most affected area function here:
+def most_affected_area(areas):
+    area_value_list = list(areas.values())
+    area_value_list.sort()
+    highest_value = area_value_list[-1]
+    for area in areas:
+        if highest_value in areas.values():
+            return 'The most affected area is {area}, being hit {value} times.'.format(area = area, value = areas[area])
 
+# function written as suggested by hint.
+    # max_area = ''
+    # max_count = 0
+    # for area in areas:
+    #     if max_count < areas[area]:
+    #         max_count = areas[area]
+    #         max_area = area
+    # return 'The most affected area is {area}, being hit {value} times.'.format(area = max_area, value = max_count)
 
-
-
-
-
+most_affected_area = most_affected_area(counted_areas)
+print(most_affected_area)
 
 # write your greatest number of deaths function here:
 
