@@ -84,7 +84,7 @@ def most_affected_area(areas):
     highest_value = area_value_list[-1]
     for area in areas:
         if highest_value in areas.values():
-            return 'The most affected area is {area}, being hit {value} times.'.format(area = area, value = areas[area])
+            return 'The most affected area is {area}, being hit {value} times.'.format(area = area, value = highest_value)
 
 # function written as suggested by hint.
     # max_area = ''
@@ -96,23 +96,55 @@ def most_affected_area(areas):
     # return 'The most affected area is {area}, being hit {value} times.'.format(area = max_area, value = max_count)
 
 most_affected_area = most_affected_area(counted_areas)
-print(most_affected_area)
+# print(most_affected_area)
 
 # write your greatest number of deaths function here:
+def greatest_deaths(hurricanes):
+    death_values = []
+    for hurricane in hurricanes:
+        death_values.append(hurricanes[hurricane]['Deaths'])
+    death_values.sort()
+    greatest_deaths = death_values[-1]
+    for hurricane in hurricanes:
+        if greatest_deaths in hurricanes[hurricane].values():
+            return 'The greatest number of deaths were caused by Hurricane {hurricane}, totaling {deaths} lives lost.'.format(hurricane = hurricane, deaths = greatest_deaths)
 
+# hint suggestioin
+    # max_death_cane = ''
+    # max_deaths = 0
+    # for hurricane in hurricanes:
+    #     if max_deaths < hurricanes[hurricane]['Deaths']:
+    #         max_deaths = hurricanes[hurricane]['Deaths']
+    #         max_death_cane = hurricane
+    # return 'The greatest number of deaths were caused by Hurricane {hurricane}, totaling {deaths} lives lost.'.format(hurricane = max_death_cane, deaths = max_deaths)
 
-
-
-
-
+greatest_deaths = greatest_deaths(hurricanes)
+# print(greatest_deaths)
 
 # write your catgeorize by mortality function here:
+def mortality_scale(hurricanes):
+    mortality_scale = {0: 0, 1: 100, 2: 500, 3: 1000, 4: 10000}
+    mortality_dict = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
+    for hurricane in hurricanes:
+        deaths = hurricanes[hurricane]['Deaths']
+        if deaths == 0:
+            mortality_dict[0].append(hurricanes[hurricane])
+        elif deaths > mortality_scale[0] and deaths <= mortality_scale[1]:
+            mortality_dict[1].append(hurricanes[hurricane])
+        elif deaths > mortality_scale[1] and deaths <= mortality_scale[2]:
+            mortality_dict[2].append(hurricanes[hurricane])
+        elif deaths > mortality_scale[2] and deaths <= mortality_scale[3]:
+            mortality_dict[3].append(hurricanes[hurricane])
+        elif deaths > mortality_scale[3] and deaths <= mortality_scale[4]:
+            mortality_dict[4].append(hurricanes[hurricane])
+        elif deaths > mortality_scale[4]:    
+            mortality_dict[5].append(hurricanes[hurricane])
+    return mortality_dict
 
-
-
-
-
-
+mortality_scale = mortality_scale(hurricanes)
+# print(mortality_scale)
+# prints value of key, then access index of list value
+# print(mortality_scale[4][0])
 
 # write your greatest damage function here:
 
