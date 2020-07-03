@@ -118,7 +118,7 @@ def greatest_deaths(hurricanes):
     #         max_death_cane = hurricane
     # return 'The greatest number of deaths were caused by Hurricane {hurricane}, totaling {deaths} lives lost.'.format(hurricane = max_death_cane, deaths = max_deaths)
 
-greatest_deaths = greatest_deaths(hurricanes)
+# greatest_deaths = greatest_deaths(hurricanes)
 # print(greatest_deaths)
 
 # write your catgeorize by mortality function here:
@@ -147,11 +147,65 @@ mortality_scale = mortality_scale(hurricanes)
 # print(mortality_scale[4][0])
 
 # write your greatest damage function here:
+def greatest_damage(hurricanes):
+    max_damage = 0
+    max_damage_cane = ''
+    for hurricane in hurricanes:
+        damage = hurricanes[hurricane]['Damage']
+        if damage == 'Damages not recorded':
+            continue
+        elif damage == int or float:
+            if max_damage < damage:
+                max_damage = damage
+                max_damage_cane = hurricane
+    return 'The greatest damage was caused by Hurricane {hurricane}, totaling ${damage} USD.'.format(hurricane = max_damage_cane, damage = max_damage)
 
-
-
-
-
-
+greatest_damage = greatest_damage(hurricanes)
+# print(greatest_damage)
 
 # write your catgeorize by damage function here:
+def damage_scale(hurricanes):
+    damage_scale = {0: 0, 1: 100000000, 2: 1000000000, 3: 10000000000, 4: 50000000000}
+    damage_dict = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
+    for hurricane in hurricanes:
+        damage = hurricanes[hurricane]['Damage']
+        if damage == 'Damages not recorded':
+            continue
+        elif damage == 0:
+            damage_dict[0].append(hurricanes[hurricane])
+        elif damage > damage_scale[0] and damage <= damage_scale[1]:
+            damage_dict[1].append(hurricanes[hurricane])
+        elif damage > damage_scale[1] and damage <= damage_scale[2]:
+            damage_dict[2].append(hurricanes[hurricane])
+        elif damage > damage_scale[2] and damage <= damage_scale[3]:
+            damage_dict[3].append(hurricanes[hurricane])
+        elif damage > damage_scale[3] and damage <= damage_scale[4]:
+            damage_dict[4].append(hurricanes[hurricane])
+        elif damage > damage_scale[4]:    
+            damage_dict[5].append(hurricanes[hurricane])
+    return damage_dict
+
+damage_scale = damage_scale(hurricanes)
+# print(damage_scale)
+# prints value of key, then access index of list value
+print(damage_scale[5][0])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
